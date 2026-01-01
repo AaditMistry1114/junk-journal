@@ -36,7 +36,6 @@ function Journal() {
       const hasEntries = dateHasEntries(date)
       return (
         <>
-          <span className="calendar-tile-add">+</span>
           {hasEntries && <span className="calendar-entry-dot" />}
         </>
       )

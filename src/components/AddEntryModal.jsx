@@ -214,7 +214,7 @@ function AddEntryModal({ isOpen, onClose, selectedDate }) {
                   {/* Amount Input */}
                   <div className="form-group">
                     <label className="form-label" htmlFor="amount-input">
-                      Amount Spent ($) *
+                      Amount Spent (₹) *
                     </label>
                     <input
                       id="amount-input"

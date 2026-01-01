@@ -1,7 +1,4 @@
-.app {
-  min-height: 100vh;
-}
-
-main {
-  padding: 2rem;
+/* Allow Journal page to go full-width */
+.journal-page {
+  max-width: none !important;
 }

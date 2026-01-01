@@ -1,50 +1,50 @@
 .header {
-  padding: 1.5rem 2rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 16px 32px;
+  border-bottom: 1px solid #F3E6EA;
+  background: #FFFBFD;
 }
 
-.header h1 {
-  font-size: 1.5rem;
+/* TITLE */
+.app-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: #2F2F35;
   margin: 0;
 }
 
-.header nav {
+.app-title span {
+  color: #F43F8C;
+  font-weight: 700;
+}
+
+/* NAV */
+nav {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 10px;
 }
 
-.header nav a {
+nav a {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6B6B76;
+  padding: 6px 14px;
+  border-radius: 8px;
   text-decoration: none;
-  color: inherit;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
 }
 
-.header nav a:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+nav a:hover {
+  background: #FFF1F3;
 }
 
-.header nav a.active {
-  background-color: rgba(255, 255, 255, 0.2);
-  font-weight: 600;
+nav a.active {
+  background: #FFE8EC;
+  color: #F43F8C;
 }
-
-@media (prefers-color-scheme: light) {
-  .header {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  }
-  
-  .header nav a:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-  
-  .header nav a.active {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-}
-
