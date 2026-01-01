@@ -16,37 +16,38 @@ function Journal() {
     setIsModalOpen(true);
   };
 
-  const handleClose = () => {
-    if (selectedDate) {
-      setDayEntries(getEntriesByDate(selectedDate));
-    }
-    setIsModalOpen(false);
-  };
-
   return (
     <div className="journal-page">
-      <Calendar
-        onClickDay={handleDayClick}
-        tileContent={({ date, view }) =>
-          view === "month" && dateHasEntries(date) ? (
-            <span className="calendar-entry-dot" />
-          ) : null
-        }
-      />
-
-      {dayEntries.length > 0 && (
-        <div style={{ marginTop: "1rem" }}>
-          {dayEntries.map((e, i) => (
-            <div key={i}>
-              {e.foodName} — ₹{e.amount}
-            </div>
-          ))}
+      <div className="journal-container">
+        {/* CALENDAR CARD */}
+        <div className="journal-calendar-wrapper">
+          <Calendar
+            onClickDay={handleDayClick}
+            className="journal-calendar"
+            tileContent={({ date, view }) =>
+              view === "month" && dateHasEntries(date) ? (
+                <span className="calendar-entry-dot" />
+              ) : null
+            }
+          />
         </div>
-      )}
+
+        {/* TEXT CONFIRMATION BELOW CALENDAR */}
+        {dayEntries.length > 0 && (
+          <div className="day-entries">
+            <h3>Entries</h3>
+            {dayEntries.map((e, i) => (
+              <div key={i} className="day-entry">
+                {e.foodName} — ₹{e.amount}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
 
       <AddEntryModal
         isOpen={isModalOpen}
-        onClose={handleClose}
+        onClose={() => setIsModalOpen(false)}
         selectedDate={selectedDate}
       />
     </div>

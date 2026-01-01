@@ -1,43 +1,68 @@
+/* ===== Overlay ===== */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 50;
 }
 
-.modal {
+/* ===== Modal Box ===== */
+.modal-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 380px;
   background: white;
-  padding: 1.5rem;
-  border-radius: 12px;
-  width: 320px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  padding: 1.75rem;
+  z-index: 60;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
 }
 
-.modal h2 {
+/* ===== Title ===== */
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
   margin-bottom: 1rem;
 }
 
-.modal form {
+/* ===== Form ===== */
+.modal-form {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
 
-.modal input {
-  padding: 0.5rem;
-  font-size: 1rem;
+.modal-form input {
+  padding: 0.65rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 0.95rem;
 }
 
-.modal button {
-  padding: 0.6rem;
-  font-size: 1rem;
+/* Save */
+.form-submit-button {
+  margin-top: 0.5rem;
+  padding: 0.7rem;
+  border-radius: 999px;
+  border: none;
+  background: #F43F8C;
+  color: white;
+  font-weight: 600;
   cursor: pointer;
 }
 
-.close-btn {
-  margin-top: 0.75rem;
-  background: #eee;
+.form-submit-button:hover {
+  opacity: 0.9;
+}
+
+/* Close */
+.form-cancel-button {
+  background: transparent;
+  border: none;
+  color: #555;
+  margin-top: 0.5rem;
+  cursor: pointer;
 }

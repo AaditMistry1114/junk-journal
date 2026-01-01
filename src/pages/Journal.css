@@ -1,4 +1,3 @@
-/* ===== PAGE LAYOUT ===== */
 .journal-page {
   width: 100%;
   min-height: calc(100vh - 120px);
@@ -8,109 +7,76 @@
   background-color: #FFFBFD;
 }
 
-/* Center container — MAKE IT BIG */
+/* CENTER CONTAINER — BIG */
 .journal-container {
   width: 100%;
-  max-width: 700px; /* ⬅️ THIS is the main reason it was small */
+  max-width: 850px; /* THIS makes it large */
 }
 
-/* ===== CALENDAR CARD ===== */
+/* Calendar wrapper (card feel) */
+.journal-calendar-wrapper {
+  background: white;
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 0 12px 40px rgba(253, 226, 224, 0.45);
+}
+
+/* Make calendar BIG */
 .journal-calendar {
   width: 100%;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 28px;
-  padding: 2.5rem 2.75rem;
+  padding: 2rem;
   box-shadow:
-    0 10px 40px rgba(253, 226, 224, 0.35),
-    0 4px 14px rgba(253, 226, 224, 0.18);
-  font-family: system-ui, -apple-system, sans-serif;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+    0 12px 40px rgba(253, 226, 224, 0.45),
+    0 4px 14px rgba(253, 226, 224, 0.25);
+  border: none;
 }
 
-/* ⬆️ Gentle uplift on hover */
-.journal-calendar:hover {
-  transform: translateY(-6px);
-  box-shadow:
-    0 18px 60px rgba(253, 226, 224, 0.45),
-    0 8px 24px rgba(253, 226, 224, 0.25);
+/* Entry dot */
+.calendar-entry-dot {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background: #F43F8C;
+  border-radius: 50%;
 }
 
-/* ===== NAVIGATION ===== */
-.react-calendar__navigation {
-  display: flex;
-  align-items: center;
-  margin-bottom: 2rem;
+/* Entries below calendar */
+.day-entries {
+  margin-top: 2rem;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(253, 226, 224, 0.35);
 }
 
-.react-calendar__navigation button {
-  min-width: 48px;
-  height: 48px;
-  background: transparent;
-  border-radius: 12px;
-  border: 1.5px solid transparent;
-  font-size: 1.05rem;
+.day-entry {
+  padding: 0.5rem 0;
   font-weight: 500;
-  color: #2F2F35;
-  transition: all 0.2s ease;
 }
 
-.react-calendar__navigation button:hover:not(:disabled) {
-  background: #FFF1F3;
-  border-color: #FDE2E0;
-  color: #F43F8C;
-}
-
-.react-calendar__navigation__label {
-  flex-grow: 1 !important;
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #2F2F35;
-  pointer-events: none;
-}
-
-/* ===== WEEKDAYS ===== */
-.react-calendar__month-view__weekdays {
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: #6B6B76;
-  margin-bottom: 1rem;
-}
-
-.react-calendar__month-view__weekdays__weekday {
-  padding: 0.75rem 0;
-}
-
-.react-calendar__month-view__weekdays__weekday abbr {
-  text-decoration: none;
-}
-
-/* ===== DAYS GRID ===== */
 .react-calendar__month-view__days {
   display: grid !important;
   grid-template-columns: repeat(7, 1fr);
-  gap: 1rem; /* ⬅️ BIG spacing like the screenshot */
+  gap: 0.75rem; /* spacing between days */
 }
 
-/* ===== DAY TILE ===== */
 .react-calendar__tile {
   aspect-ratio: 1;
   background: #FDE2E0;
-  border-radius: 18px;
-  border: 1.5px solid transparent;
+  border-radius: 16px;
+  border: none;
   font-size: 1rem;
   font-weight: 500;
   color: #2F2F35;
   position: relative;
   cursor: pointer;
   transition: all 0.25s ease;
-
-  /* ⬇️ REMOVE center alignment */
-  display: block;
-  padding: 0.75rem;
 }
-
 
 /* Hover lift */
 .react-calendar__tile:hover {
@@ -119,62 +85,40 @@
   box-shadow: 0 6px 18px rgba(253, 226, 224, 0.45);
 }
 
-/* Active day */
-.react-calendar__tile--active {
-  background: #FDE2E0;
-  border-color: #F43F8C;
-  font-weight: 600;
-}
-
-/* Today */
-.react-calendar__tile--now {
-  background: #FFE8EC;
-  box-shadow: 0 4px 12px rgba(255, 232, 236, 0.6);
-}
-
-/* Other month days */
-.react-calendar__tile--neighboringMonth {
-  opacity: 0.3;
-  background: #FFFBFD;
-}
-
-/* ===== DATE NUMBER PILL ===== */
+/* DATE NUMBER */
 .react-calendar__tile abbr {
   position: absolute;
   top: 0.6rem;
   right: 0.6rem;
-
-  background: #FFFFFF;
-  padding: 0.25rem 0.55rem;
+  background: #ffffff;
+  padding: 0.25rem 0.6rem;
   border-radius: 999px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
+  text-decoration: none;
 }
 
 
-/* ===== ENTRY DOT ===== */
-.calendar-entry-dot {
-  position: absolute;
-  bottom: 0.7rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 7px;
-  height: 7px;
-  background: #F43F8C;
-  border-radius: 50%;
+.react-calendar {
+  border: none !important;
 }
 
-/* ===== MOBILE ===== */
-@media (max-width: 768px) {
-  .journal-calendar {
-    padding: 1.5rem;
-  }
+.react-calendar__tile:enabled:focus {
+  outline: none;
+}
 
-  .react-calendar__month-view__days {
-    gap: 0.6rem;
-  }
+.react-calendar__tile--active {
+  background: #FDE2E0;
+}
 
-  .react-calendar__tile {
-    border-radius: 14px;
-  }
+.react-calendar__tile:hover {
+  background: #FFF1F3 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(244, 63, 140, 0.25);
+}
+
+.react-calendar__tile:hover {
+  background: #FFF1F3 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(244, 63, 140, 0.25);
 }

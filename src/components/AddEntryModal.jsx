@@ -25,36 +25,46 @@ function AddEntryModal({ isOpen, onClose, selectedDate }) {
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal">
-        <h2>Add Food</h2>
-
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Food name"
-            value={foodName}
-            onChange={(e) => setFoodName(e.target.value)}
-            required
-          />
-
-          <input
-            type="number"
-            placeholder="Amount"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            required
-          />
-
-          <button type="submit">Save</button>
-        </form>
-
-        <button className="close-btn" onClick={onClose}>
-          Close
-        </button>
-      </div>
-    </div>
+    isOpen && (
+      <>
+        <div className="modal-overlay" onClick={onClose}></div>
+  
+        <div className="modal-content">
+          <h2 className="modal-title">Add Food</h2>
+  
+          <form onSubmit={handleSubmit} className="modal-form">
+            <input
+              type="text"
+              placeholder="Food name"
+              value={foodName}
+              onChange={(e) => setFoodName(e.target.value)}
+              required
+            />
+  
+            <input
+              type="number"
+              placeholder="Amount (₹)"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              required
+            />
+  
+            <button type="submit" className="form-submit-button">
+              Save
+            </button>
+  
+            <button
+              type="button"
+              className="form-cancel-button"
+              onClick={onClose}
+            >
+              Close
+            </button>
+          </form>
+        </div>
+      </>
+    )
   );
-}
+}  
 
 export default AddEntryModal;
