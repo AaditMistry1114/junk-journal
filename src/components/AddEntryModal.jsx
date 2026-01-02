@@ -31,8 +31,9 @@ function AddEntryModal({ isOpen, onClose, selectedDate }) {
       date: selectedDate.toISOString().split("T")[0],
       foodName,
       amount: Number(amount),
-      // image NOT saved yet (next phase)
+      image: imagePreview || null,
     });
+    
 
     // Reset form
     setFoodName("");

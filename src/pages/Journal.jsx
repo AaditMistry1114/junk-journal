@@ -32,13 +32,27 @@ function Journal() {
           />
         </div>
 
-        {/* TEXT CONFIRMATION BELOW CALENDAR */}
+        {/* IMAGE + DETAILS PREVIEW BELOW CALENDAR */}
         {dayEntries.length > 0 && (
           <div className="day-entries">
-            <h3>Entries</h3>
             {dayEntries.map((e, i) => (
-              <div key={i} className="day-entry">
-                {e.foodName} — ₹{e.amount}
+              <div key={i} className="food-card">
+                {/* FOOD NAME */}
+                <div className="food-card-header">
+                  {e.foodName}
+                </div>
+
+                {/* IMAGE (full width, responsive) */}
+                {e.image && (
+                  <div className="food-card-image">
+                    <img src={e.image} alt={e.foodName} />
+                  </div>
+                )}
+
+                {/* PRICE */}
+                <div className="food-card-footer">
+                  ₹{e.amount}
+                </div>
               </div>
             ))}
           </div>
