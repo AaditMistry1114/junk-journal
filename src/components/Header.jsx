@@ -1,32 +1,34 @@
-import { Link, useLocation } from 'react-router-dom'
-import './Header.css'
+import { Link, useLocation } from "react-router-dom";
+import "./Header.css";
 
 function Header() {
-  const location = useLocation()
+  const location = useLocation();
 
   return (
     <header className="header">
-      <h1 className="app-title">
-        Junk <span>Journal</span>
-      </h1>
+      <div className="header-inner">
+        <h1 className="app-title">
+          Junk <span>Journal</span>
+        </h1>
 
-      <nav>
-        <Link 
-          to="/" 
-          className={location.pathname === '/' ? 'active' : ''}
-        >
-          Journal
-        </Link>
-        <span> | </span>
-        <Link 
-          to="/stats" 
-          className={location.pathname === '/stats' ? 'active' : ''}
-        >
-          Stats
-        </Link>
-      </nav>
+        <nav className="nav-links">
+          <Link
+            to="/"
+            className={location.pathname === "/" ? "active" : ""}
+          >
+            Journal
+          </Link>
+          <span className="divider">|</span>
+          <Link
+            to="/stats"
+            className={location.pathname === "/stats" ? "active" : ""}
+          >
+            Stats
+          </Link>
+        </nav>
+      </div>
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;

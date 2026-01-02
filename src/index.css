@@ -190,3 +190,22 @@
   background-color: #f3f4f6 !important;
   color: #374151 !important;
 }
+
+.react-calendar__tile--active {
+  background-color: #3b82f6 !important; /* blue */
+  color: white !important;
+}
+
+/* Keep date pill readable */
+.react-calendar__tile--active abbr {
+  background: white !important;
+  color: #1d4ed8 !important;
+}
+
+/* ===== MOBILE SPECIFIC FIX ===== */
+@media (max-width: 640px) {
+  .react-calendar__tile--active {
+    background-color: #3b82f6 !important;
+    color: white !important;
+  }
+}
