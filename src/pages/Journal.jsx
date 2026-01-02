@@ -17,48 +17,80 @@ function Journal() {
   };
 
   return (
-    <div className="journal-page">
+    <div className="journal-page bg-red-200 p-10">
       <div className="journal-container">
-        {/* CALENDAR CARD */}
-        <div className="journal-calendar-wrapper">
-          <Calendar
-            onClickDay={handleDayClick}
-            className="journal-calendar"
-            tileContent={({ date, view }) =>
-              view === "month" && dateHasEntries(date) ? (
-                <span className="calendar-entry-dot" />
-              ) : null
-            }
-          />
-        </div>
-
-        {/* IMAGE + DETAILS PREVIEW BELOW CALENDAR */}
-        {dayEntries.length > 0 && (
-          <div className="day-entries">
-            {dayEntries.map((e, i) => (
-              <div key={i} className="food-card">
-                {/* FOOD NAME */}
-                <div className="food-card-header">
-                  {e.foodName}
-                </div>
-
-                {/* IMAGE (full width, responsive) */}
-                {e.image && (
-                  <div className="food-card-image">
-                    <img src={e.image} alt={e.foodName} />
+  
+        {/* Tailwind layout wrapper */}
+        <div className="flex flex-col lg:flex-row gap-6">
+  
+          {/* LEFT: CALENDAR */}
+          <div className="lg:w-1/2">
+            <div className="journal-calendar-wrapper">
+              <Calendar
+                onClickDay={(date) => {
+                  setSelectedDate(date);
+                  setDayEntries(getEntriesByDate(date));
+                }}
+                className="journal-calendar"
+                tileContent={({ date, view }) =>
+                  view === "month" && dateHasEntries(date) ? (
+                    <span className="calendar-entry-dot" />
+                  ) : null
+                }
+              />
+            </div>
+          </div>
+  
+          {/* RIGHT: ENTRIES */}
+          <div className="lg:w-1/2 flex flex-col">
+            {selectedDate ? (
+              <>
+                {/* Add Food Button */}
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="mb-4 self-start rounded-xl bg-pink-500 px-4 py-2 text-white font-medium hover:bg-pink-600 transition"
+                >
+                  + Add Food
+                </button>
+  
+                {/* Entries */}
+                {dayEntries.length > 0 ? (
+                  <div className="day-entries">
+                    {dayEntries.map((e, i) => (
+                      <div key={i} className="food-card">
+                        <div className="food-card-header">
+                          {e.foodName}
+                        </div>
+  
+                        {e.image && (
+                          <div className="food-card-image">
+                            <img src={e.image} alt={e.foodName} />
+                          </div>
+                        )}
+  
+                        <div className="food-card-footer">
+                          ₹{e.amount}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-gray-500 mt-4">
+                    No entries for this day.
                   </div>
                 )}
-
-                {/* PRICE */}
-                <div className="food-card-footer">
-                  ₹{e.amount}
-                </div>
+              </>
+            ) : (
+              <div className="text-gray-400">
+                Select a date to view entries
               </div>
-            ))}
+            )}
           </div>
-        )}
+  
+        </div>
       </div>
-
+  
+      {/* ADD MODAL */}
       <AddEntryModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -67,5 +99,4 @@ function Journal() {
     </div>
   );
 }
-
-export default Journal;
+  export default Journal;
