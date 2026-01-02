@@ -4,36 +4,29 @@ function getAllEntries() {
   return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 }
 
-/* ADD or EDIT */
 export function saveEntry(entry) {
   const entries = getAllEntries();
-
-  const index = entries.findIndex(e => e.id === entry.id);
+  const index = entries.findIndex((e) => e.id === entry.id);
 
   if (index >= 0) {
-    entries[index] = entry; // ✅ EDIT
+    entries[index] = entry; // EDIT
   } else {
-    entries.push(entry);    // ✅ ADD
+    entries.push(entry); // ADD
   }
 
   localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
 }
 
-/* DELETE */
 export function deleteEntry(id) {
-  const entries = getAllEntries();
-  const updated = entries.filter(e => e.id !== id);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+  const entries = getAllEntries().filter((e) => e.id !== id);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
 }
 
-/* GET BY DATE */
-export function getEntriesByDate(date) {
-  const dateKey = date.toISOString().split("T")[0];
-  return getAllEntries().filter(e => e.date === dateKey);
+export function getEntriesByDate(dateKey) {
+  return getAllEntries().filter((e) => e.date === dateKey);
 }
 
-/* CALENDAR DOT */
 export function dateHasEntries(date) {
-  const dateKey = date.toISOString().split("T")[0];
-  return getAllEntries().some(e => e.date === dateKey);
+  const key = date instanceof Date ? date.toISOString().slice(0, 10) : date;
+  return getAllEntries().some((e) => e.date === key);
 }

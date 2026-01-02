@@ -1,31 +1,25 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { saveEntry } from "../utils/storage";
+import { toLocalDateKey } from "../utils/date";
 import "./AddEntryModal.css";
 
 function AddEntryModal({ isOpen, onClose, selectedDate, editingEntry }) {
   const [foodName, setFoodName] = useState("");
   const [amount, setAmount] = useState("");
-  const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
-  /* ===============================
-     PREFILL WHEN EDITING
-  =============================== */
+  // ✅ STABLE useEffect (NO conditional deps)
   useEffect(() => {
-    if (editingEntry && isOpen) {
-      setFoodName(editingEntry.foodName);
-      setAmount(editingEntry.amount);
-      setImage(null);
+    if (editingEntry) {
+      setFoodName(editingEntry.foodName || "");
+      setAmount(editingEntry.amount || "");
       setImagePreview(editingEntry.image || null);
-    }
-
-    if (!editingEntry && isOpen) {
+    } else {
       setFoodName("");
       setAmount("");
-      setImage(null);
       setImagePreview(null);
     }
-  }, [editingEntry, isOpen]);
+  }, [editingEntry, isOpen]); // <-- CONSTANT SIZE
 
   if (!isOpen || !selectedDate) return null;
 
@@ -34,42 +28,28 @@ function AddEntryModal({ isOpen, onClose, selectedDate, editingEntry }) {
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onloadend = () => {
-      setImage(file);               // kept for future
-      setImagePreview(reader.result); // UI preview
-    };
+    reader.onloadend = () => setImagePreview(reader.result);
     reader.readAsDataURL(file);
   };
 
-  /* ===============================
-     SAVE (ADD OR EDIT)
-  =============================== */
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!foodName || !amount) return;
 
     saveEntry({
-      id: editingEntry?.id || crypto.randomUUID(), // 🔥 KEY FIX
-      date: selectedDate.toISOString().split("T")[0],
+      id: editingEntry?.id || crypto.randomUUID(),
+      date: toLocalDateKey(selectedDate),
       foodName,
       amount: Number(amount),
       image: imagePreview || null,
     });
 
-    handleClose();
-  };
-
-  const handleClose = () => {
-    setFoodName("");
-    setAmount("");
-    setImage(null);
-    setImagePreview(null);
     onClose();
   };
 
   return (
     <>
-      <div className="modal-overlay" onClick={handleClose}></div>
+      <div className="modal-overlay" onClick={onClose} />
 
       <div className="modal-content">
         <h2 className="modal-title">
@@ -93,17 +73,11 @@ function AddEntryModal({ isOpen, onClose, selectedDate, editingEntry }) {
             required
           />
 
-          {/* IMAGE INPUT */}
           <div className="form-group">
             <label>Image (optional)</label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-            />
+            <input type="file" accept="image/*" onChange={handleImageChange} />
           </div>
 
-          {/* IMAGE PREVIEW */}
           {imagePreview && (
             <img
               src={imagePreview}
@@ -124,7 +98,7 @@ function AddEntryModal({ isOpen, onClose, selectedDate, editingEntry }) {
           <button
             type="button"
             className="form-cancel-button"
-            onClick={handleClose}
+            onClick={onClose}
           >
             Close
           </button>
