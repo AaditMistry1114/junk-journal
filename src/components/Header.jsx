@@ -18,12 +18,23 @@ function Header() {
           >
             Journal
           </Link>
+
           <span className="divider">|</span>
+
           <Link
             to="/stats"
             className={location.pathname === "/stats" ? "active" : ""}
           >
             Stats
+          </Link>
+
+          <span className="divider">|</span>
+
+          <Link
+            to="/gallery"
+            className={location.pathname === "/gallery" ? "active" : ""}
+          >
+            Gallery
           </Link>
         </nav>
       </div>

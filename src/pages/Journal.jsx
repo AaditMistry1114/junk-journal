@@ -142,27 +142,27 @@ function Journal() {
       </div>
 
       {/* IMAGE PREVIEW */}
-      {previewImage && (
-        <div
-        className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4"
-        onClick={() => setPreviewImage(null)}
-      >
-        <div className="relative">
-          <button
-            className="absolute -top-10 right-0 text-white text-3xl"
-            onClick={() => setPreviewImage(null)}
-          >
-            ×
-          </button>
-      
-          <img
-            src={previewImage}
-            className="max-h-[85vh] rounded-2xl bg-white"
-          />
-        </div>
-      </div>
-      
-      )}
+{previewImage && (
+  <div
+    className="fixed inset-0 bg-black/80 flex items-center justify-center z-[9999]"
+    onClick={() => setPreviewImage(null)}
+  >
+    {/* Close Button */}
+    <button
+      onClick={() => setPreviewImage(null)}
+      className="absolute top-6 right-16 text-white text-3xl font-bold hover:opacity-80"
+    >
+      ×
+    </button>
+
+    {/* Image */}
+    <img
+      src={previewImage}
+      className="max-h-[85vh] max-w-[90vw] rounded-2xl shadow-2xl"
+      onClick={(e) => e.stopPropagation()}
+    />
+  </div>
+)}
 
       <AddEntryModal
         isOpen={isModalOpen}
