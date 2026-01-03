@@ -1,16 +1,100 @@
-# React + Vite
+📝 Junk Journal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Junk Journal is a clean, minimal web app to track junk food habits, visualize spending, and reflect on unhealthy eating patterns — without judgment, just awareness.
 
-Currently, two official plugins are available:
+It helps you log junk food, see patterns, and think twice next time.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+✨ Features
+📅 Journal
 
-## React Compiler
+Calendar-based junk food tracking
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Visual indicator for days with entries
 
-## Expanding the ESLint configuration
+Add food name, amount, and optional photo
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Edit or delete entries
+
+Daily spending summary
+
+📊 Stats
+
+Monthly spending breakdown
+
+Top junk item
+
+Junk vs no-junk streaks
+
+Month-over-month comparison
+
+“Money wasted” insight (fun but eye-opening 😅)
+
+Export stats as PDF
+
+🖼️ Gallery
+
+All food images shown in a clean grid
+
+Filter images by month
+
+Full-screen image preview with download option
+
+🧠 Why this app?
+
+Most habit trackers focus on discipline.
+Junk Journal focuses on awareness.
+
+Seeing:
+
+how often you eat junk
+
+how much money you spend
+
+visual memories of cravings
+
+naturally encourages better decisions.
+
+🛠️ Tech Stack
+
+React (Vite)
+
+Tailwind CSS
+
+React Calendar
+
+Recharts
+
+html2canvas + jsPDF
+
+LocalStorage (no backend)
+
+🚀 Live Demo
+
+👉 Live App on Vercel
+
+(Link will be updated after deployment)
+
+📸 Screenshots
+
+Journal view (calendar-based logging)
+
+Stats dashboard (insights + PDF export)
+
+Gallery (visual history)
+
+(Screenshots coming soon)
+
+📦 Installation (Local)
+git clone https://github.com/your-username/junk-journal.git
+cd junk-journal
+npm install
+npm run dev
+
+🔒 Data Privacy
+
+All data is stored locally in your browser using LocalStorage.
+No sign-up. No cloud. No tracking.
+
+🙌 Author
+
+Built with ❤️ by Aadit Mistry
