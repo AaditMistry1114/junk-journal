@@ -41,6 +41,12 @@ function Journal() {
             }
           />
 
+<div className="mt-4 flex items-center gap-2 text-sm text-gray-500">
+  <span className="w-2 h-2 bg-red-500 rounded-full"></span>
+  <span>Days with entries</span>
+</div>
+
+
           <button
             onClick={() => {
               setEditingEntry(null);
@@ -66,15 +72,37 @@ function Journal() {
             </div>
           )}
 
-          {dayEntries.length === 0 ? (
-            <p className="text-gray-400">Select a date</p>
+          {!selectedDate ? (
+            <div className="text-center py-20 text-gray-400">
+              <p className="text-lg font-medium">📅 No date selected</p>
+              <p className="text-sm mt-1">
+                Click a date on the calendar to view entries
+              </p>
+            </div>
+          ) : dayEntries.length === 0 ? (
+            <div className="text-center py-20 text-gray-400">
+              <p className="text-lg font-medium">🍽 No entries yet</p>
+              <p className="text-sm mt-1">
+                Add what you ate on this day
+              </p>
+            </div>
           ) : (
+
             dayEntries.map((e) => (
-              <div key={e.id} className="border rounded-xl p-4 mb-4">
-                <div className="flex justify-between">
-                  <span>{e.foodName}</span>
-                  <span className="text-pink-500">₹{e.amount}</span>
-                </div>
+              <div
+              key={e.id}
+              className="rounded-2xl p-4 mb-4 bg-white border
+                         hover:shadow-md transition"
+            >
+                <div className="flex justify-between items-center">
+  <span className="font-medium text-gray-800">
+    {e.foodName}
+  </span>
+  <span className="font-semibold text-pink-500">
+    ₹{e.amount}
+  </span>
+</div>
+
 
                 <div className="flex gap-3 mt-2 text-sm">
                   <button
@@ -116,11 +144,24 @@ function Journal() {
       {/* IMAGE PREVIEW */}
       {previewImage && (
         <div
-          className="fixed inset-0 bg-black/70 flex items-center justify-center"
-          onClick={() => setPreviewImage(null)}
-        >
-          <img src={previewImage} className="max-h-[85vh] rounded-xl" />
+        className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4"
+        onClick={() => setPreviewImage(null)}
+      >
+        <div className="relative">
+          <button
+            className="absolute -top-10 right-0 text-white text-3xl"
+            onClick={() => setPreviewImage(null)}
+          >
+            ×
+          </button>
+      
+          <img
+            src={previewImage}
+            className="max-h-[85vh] rounded-2xl bg-white"
+          />
         </div>
+      </div>
+      
       )}
 
       <AddEntryModal

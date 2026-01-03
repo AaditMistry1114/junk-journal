@@ -102,11 +102,18 @@
   background: #fde2e7 !important;
 }
 
-/* TODAY */
+/* TODAY ,  Soft glow for today */
 .react-calendar__tile--now {
   outline: 2px solid #fb7185;
   outline-offset: 2px;
+
+
+
+  box-shadow: 0 0 0 3px rgba(251, 113, 133, 0.25),
+              0 8px 18px rgba(251, 113, 133, 0.25);
+  animation: todayPulse 2.5s ease-in-out infinite;
 }
+
 
 /* ACTIVE */
 .react-calendar__tile--active {
@@ -209,3 +216,209 @@
     color: white !important;
   }
 }
+
+/* =====================================================
+   CALENDAR POLISH
+===================================================== */
+
+
+@keyframes todayPulse {
+  0% { box-shadow: 0 0 0 3px rgba(251, 113, 133, 0.25); }
+  50% { box-shadow: 0 0 0 6px rgba(251, 113, 133, 0.15); }
+  100% { box-shadow: 0 0 0 3px rgba(251, 113, 133, 0.25); }
+}
+
+/* Entry dot polish */
+.calendar-entry-dot {
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);
+}
+
+/* Hover emphasis */
+.react-calendar__tile:hover .calendar-entry-dot {
+  transform: translateX(-50%) scale(1.25);
+}
+
+/* =====================================================
+   HEADER — AESTHETIC PRODUCT POLISH
+   (Safe: does not affect calendar or pages)
+===================================================== */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 14px 28px;
+
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border-bottom: 1px solid rgba(236, 72, 153, 0.12);
+}
+
+/* App title */
+.app-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Highlighted word */
+.app-title span {
+  color: #ec4899;
+  position: relative;
+}
+
+/* subtle underline accent */
+.app-title span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 3px;
+  background: rgba(236, 72, 153, 0.3);
+  border-radius: 999px;
+}
+
+/* Navigation */
+.header nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Nav links */
+.header nav a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #6b7280;
+
+  padding: 6px 16px;
+  border-radius: 999px;
+
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+/* Hover */
+.header nav a:hover {
+  background: #fde2e7;
+  color: #ec4899;
+}
+
+/* Active tab */
+.header nav a.active {
+  background: linear-gradient(
+    135deg,
+    #ec4899,
+    #fb7185
+  );
+  color: white;
+  box-shadow: 0 6px 18px rgba(236, 72, 153, 0.25);
+}
+
+/* Remove visual pipe | without JSX change */
+.header nav span {
+  display: none;
+}
+
+/* ===============================
+   MOBILE HEADER
+================================ */
+@media (max-width: 640px) {
+  .header {
+    padding: 12px 16px;
+  }
+
+  .app-title {
+    font-size: 1.15rem;
+  }
+
+  .header nav a {
+    font-size: 0.85rem;
+    padding: 5px 14px;
+  }
+}
+
+/* =====================================================
+   MICRO INTERACTIONS (GLOBAL)
+===================================================== */
+
+/* Smooth everything */
+button,
+a,
+.shadow,
+.shadow-lg,
+.react-calendar__tile,
+.border.rounded-xl img {
+  transition: background-color 0.2s ease,
+              color 0.2s ease,
+              box-shadow 0.2s ease,
+              transform 0.15s ease;
+}
+/* Buttons */
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* Cards */
+.shadow,
+.shadow-lg {
+  transition: box-shadow 0.25s ease, transform 0.2s ease;
+}
+
+.shadow:hover,
+.shadow-lg:hover {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+/* =====================================================
+   ENTRY CARD ICONS (JOURNAL)
+===================================================== */
+
+/* Entry container */
+.border.rounded-xl {
+  position: relative;
+}
+
+/* Food icon */
+.border.rounded-xl span:first-child::before {
+  content: "🍔";
+  margin-right: 6px;
+}
+
+/* Amount icon */
+.border.rounded-xl .text-pink-500::before {
+  content: "₹ ";
+  opacity: 0.6;
+}
+
+/* Image hover polish */
+.border.rounded-xl img {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.border.rounded-xl img:hover {
+  transform: scale(1.04);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* =====================================================
+   CALENDAR HEATMAP (INTENSITY)
+===================================================== */
+
