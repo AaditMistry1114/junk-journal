@@ -85,7 +85,7 @@ Gallery (visual history)
 (Screenshots coming soon)
 
 📦 Installation (Local)
-git clone https://github.com/your-username/junk-journal.git
+git clone https://github.com/AaditMistry1114/junk-journal.git
 cd junk-journal
 npm install
 npm run dev
@@ -98,3 +98,4 @@ No sign-up. No cloud. No tracking.
 🙌 Author
 
 Built with ❤️ by Aadit Mistry
+GitHub: @AaditMistry1114
