@@ -45,10 +45,57 @@ const COLORS = [
 
 const renderLabel = ({ name, value }) => `${name}: ₹${value}`;
 
+function toDateKey(date) {
+  return date.toISOString().slice(0, 10);
+}
+
+
 /* ---------- COMPONENT ---------- */
 function Stats() {
   const allEntries =
     JSON.parse(localStorage.getItem("junk_journal_entries")) || [];
+
+    /* 🔥 STREAK LOGIC */
+const junkDaysSet = useMemo(() => {
+  return new Set(allEntries.map((e) => e.date));
+}, [allEntries]);
+
+// 1️⃣ No-junk streak (current)
+let noJunkStreak = 0;
+let cursor = new Date();
+while (!junkDaysSet.has(toDateKey(cursor))) {
+  noJunkStreak++;
+  cursor.setDate(cursor.getDate() - 1);
+}
+
+// 2️⃣ Junk streak (current)
+let junkStreak = 0;
+cursor = new Date();
+while (junkDaysSet.has(toDateKey(cursor))) {
+  junkStreak++;
+  cursor.setDate(cursor.getDate() - 1);
+}
+
+// 3️⃣ Best no-junk streak (all-time)
+let bestStreak = 0;
+let currentStreak = 0;
+
+if (junkDaysSet.size > 0) {
+  const sortedDates = [...junkDaysSet].sort();
+  let d = new Date(sortedDates[0]);
+  const today = new Date();
+
+  while (d <= today) {
+    if (!junkDaysSet.has(toDateKey(d))) {
+      currentStreak++;
+      bestStreak = Math.max(bestStreak, currentStreak);
+    } else {
+      currentStreak = 0;
+    }
+    d.setDate(d.getDate() + 1);
+  }
+}
+
 
   const [selectedMonth, setSelectedMonth] = useState(
     getLatestMonth(allEntries)
@@ -217,7 +264,33 @@ function Stats() {
               </p>
             )}
           </div>
+          
         </div>
+
+        {/* 🔥 STREAKS & HABITS */}
+<div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+  <div className="bg-green-50 rounded-xl p-4 shadow">
+    <p className="text-sm text-gray-500">🔥 No-junk streak</p>
+    <p className="text-2xl font-bold text-green-600">
+      {noJunkStreak} days
+    </p>
+  </div>
+
+  <div className="bg-red-50 rounded-xl p-4 shadow">
+    <p className="text-sm text-gray-500">🍔 Junk streak</p>
+    <p className="text-2xl font-bold text-red-500">
+      {junkStreak} days
+    </p>
+  </div>
+
+  <div className="bg-white rounded-xl p-4 shadow">
+    <p className="text-sm text-gray-500">🏆 Best streak</p>
+    <p className="text-2xl font-bold">
+      {bestStreak} days
+    </p>
+  </div>
+</div>
+
 
         {/* 💸 MONEY WASTED CARD */}
         <div className="bg-white rounded-xl p-4 shadow space-y-2">
