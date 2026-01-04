@@ -26,11 +26,9 @@ function Journal() {
     0
   );
 
-  // ✅ Has user EVER added any entry
   const hasAnyEntries =
     JSON.parse(localStorage.getItem("junk_journal_entries"))?.length > 0;
 
-  // ✅ Auto-hide tutorial forever once user adds first entry
   useEffect(() => {
     if (hasAnyEntries && showTutorial) {
       setShowTutorial(false);
@@ -40,7 +38,7 @@ function Journal() {
   return (
     <div className="min-h-screen bg-[#FFFBFD] px-4 py-6">
 
-      {/* 📱 MOBILE ONBOARDING OVERLAY */}
+      {/* MOBILE ONBOARDING */}
       {showTutorial && !hasAnyEntries && (
         <div className="fixed inset-0 bg-black/40 z-[9999] flex items-end sm:hidden">
           <div className="bg-white w-full rounded-t-3xl p-6 space-y-4">
@@ -50,12 +48,10 @@ function Journal() {
                 Welcome to Junk Journal
               </h3>
             </div>
-
             <p className="text-sm text-gray-600 text-center">
               Tap a date on the calendar to log what you ate.  
               Your habits and spending will appear here.
             </p>
-
             <button
               onClick={() => setShowTutorial(false)}
               className="w-full bg-pink-500 text-white py-3 rounded-xl"
@@ -99,7 +95,6 @@ function Journal() {
         {/* ENTRIES / RIGHT PANEL */}
         <div className="bg-white rounded-3xl p-6 shadow overflow-y-auto">
 
-          {/* SUMMARY */}
           {dayEntries.length > 0 && (
             <div className="mb-6 bg-pink-50 rounded-xl p-4 flex justify-between">
               <div>
@@ -112,7 +107,6 @@ function Journal() {
             </div>
           )}
 
-          {/* DESKTOP ONBOARDING */}
           {!selectedDate && !hasAnyEntries ? (
             <div className="hidden sm:flex flex-col items-center justify-center h-full text-center text-gray-500 py-20">
               <p className="text-4xl mb-4">👋</p>
@@ -126,27 +120,21 @@ function Journal() {
                 Your habits and spending will appear here.
               </p>
             </div>
-
           ) : !selectedDate ? (
-
             <div className="text-center py-20 text-gray-400">
               <p className="text-lg font-medium">📅 No date selected</p>
               <p className="text-sm mt-1">
                 Click a date on the calendar to view entries
               </p>
             </div>
-
           ) : dayEntries.length === 0 ? (
-
             <div className="text-center py-20 text-gray-400">
               <p className="text-lg font-medium">🍽 No entries yet</p>
               <p className="text-sm mt-1">
                 Add what you ate on this day
               </p>
             </div>
-
           ) : (
-
             dayEntries.map((e) => (
               <div
                 key={e.id}
@@ -160,7 +148,6 @@ function Journal() {
                     ₹{e.amount}
                   </span>
                 </div>
-
                 <div className="flex gap-3 mt-2 text-sm">
                   <button
                     onClick={() => {
@@ -171,7 +158,6 @@ function Journal() {
                   >
                     Edit
                   </button>
-
                   <button
                     onClick={() => {
                       deleteEntry(e.id);
@@ -184,7 +170,6 @@ function Journal() {
                     Delete
                   </button>
                 </div>
-
                 {e.image && (
                   <img
                     src={e.image}
@@ -198,7 +183,6 @@ function Journal() {
         </div>
       </div>
 
-      {/* IMAGE PREVIEW */}
       {previewImage && (
         <div
           className="fixed inset-0 bg-black/80 flex items-center justify-center z-[9999]"
@@ -210,7 +194,6 @@ function Journal() {
           >
             ×
           </button>
-
           <img
             src={previewImage}
             className="max-h-[85vh] max-w-[90vw] rounded-2xl shadow-2xl"

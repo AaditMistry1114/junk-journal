@@ -2,507 +2,349 @@
 @tailwind components;
 @tailwind utilities;
 
-
-/* ===== REACT CALENDAR RESET ===== */
-.react-calendar,
-.react-calendar * {
-  box-sizing: border-box;
+/* =========================================
+   1. GLOBAL RESET
+   ========================================= */
+body {
+  background-color: #FFFBFD;
+  color: #374151;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.react-calendar {
-  border: none !important;
-  background: transparent !important;
+/* =========================================
+   2. HEADER (App Navigation)
+   ========================================= */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3.5rem; 
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
-/* Kill default tile visuals */
-.react-calendar__tile {
-  background: transparent !important;
-  border: none !important;
-  padding: 0 !important;
+.app-title {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.03em;
 }
-/* ===== CALENDAR BASE ===== */
+
+.app-title span {
+  color: #ec4899;
+  position: relative;
+  margin-left: 2px;
+}
+
+.app-title span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  width: 100%;
+  height: 4px;
+  background: rgba(236, 72, 153, 0.3);
+  border-radius: 999px;
+}
+
+.header nav {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.header nav a {
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #6b7280;
+  padding: 8px 24px;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+}
+
+.header nav a:hover {
+  color: #ec4899;
+  background: #fdf2f8;
+}
+
+.header nav a.active {
+  background: #f43f5e;
+  color: white;
+  box-shadow: 0 4px 12px rgba(244, 63, 94, 0.3);
+}
+
+/* =========================================
+   3. CALENDAR NAVIGATION
+   ========================================= */
 .react-calendar {
   width: 100%;
-  border: none;
-  background: white;
+  border: none !important;
+  background: transparent !important;
   font-family: inherit;
 }
 
-/* ===== NAVIGATION ===== */
 .react-calendar__navigation {
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
 }
 
-/* ARROWS ( < > << >> ) */
+/* ARROW BUTTONS (< >) */
 .react-calendar__navigation button {
-  width: 38px;
-  height: 38px;
-  border-radius: 999px;
-  background: #f3f4f6;      /* grey default */
-  color: #374151;
-  font-size: 1rem;
+  min-width: 44px;
+  height: 44px;
+  background: #f3f4f6 !important;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  color: #4b5563;
+  border: none;
   transition: all 0.2s ease;
 }
 
 .react-calendar__navigation button:hover {
-  background: #ec4899;      /* pink hover */
-  color: white;
+  background: #ec4899 !important;
+  color: white !important;
+  cursor: pointer;
 }
 
-/* ===== MONTH TITLE CONTAINER ===== */
+/* TITLE LABEL (Curved Rectangle) */
 .react-calendar__navigation__label {
-  background: #f3f4f6;      /* grey default */
-  color: #374151;
+  width: auto !important;
+  background: #f3f4f6 !important;
+  
+  /* Curved Rectangle Radius */
+  border-radius: 14px !important; 
+  
+  padding: 0 40px !important;
+  min-width: 160px;
+  height: 44px;
+  
   font-weight: 700;
+  color: #1f2937;
   font-size: 1.05rem;
-  padding: 8px 18px;
-  border-radius: 999px;
+  flex-grow: 0 !important;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto !important; 
   transition: all 0.2s ease;
 }
 
 .react-calendar__navigation__label:hover {
-  background: #ec4899;      /* pink hover */
-  color: white;
-  cursor: default;
+  background: #ec4899 !important;
+  color: white !important;
+  cursor: pointer;
 }
 
-/* ===== WEEKDAYS ===== */
+/* =========================================
+   4. CALENDAR GRIDS (Layout Fixes)
+   ========================================= */
+
+/* A. DAY VIEW (7 Columns) */
 .react-calendar__month-view__weekdays {
+  text-align: center;
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 700;
+  text-transform: uppercase;
   color: #6b7280;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .react-calendar__month-view__weekdays abbr {
   text-decoration: none;
+  cursor: default;
 }
 
-/* ===== DAYS GRID ===== */
 .react-calendar__month-view__days {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 0.9rem;
+  display: grid !important;
+  grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+  gap: 0.75rem !important;
 }
 
-/* ===== DAY TILE ===== */
+/* B. YEAR/DECADE VIEW (3 Columns) */
+.react-calendar__year-view__months,
+.react-calendar__decade-view__years,
+.react-calendar__century-view__decades {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 1rem !important;
+  justify-content: center;
+}
+
+/* =========================================
+   5. TILE STYLING
+   ========================================= */
 .react-calendar__tile {
-  background: #fde8e8 !important;
-  border-radius: 18px;
-  min-height: 96px;
+  max-width: initial !important;
+  flex: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  
+  background: #ffe4e6 !important; 
+  border-radius: 18px; 
   position: relative;
-  padding: 0;
-  transition: all 0.2s ease;
+  overflow: visible !important;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  border: none !important;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #374151;
 }
 
+/* Specific Height for DAYS */
+.react-calendar__month-view__days .react-calendar__tile {
+  min-height: 90px;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+/* Specific Height for YEARS/MONTHS */
+.react-calendar__year-view__months .react-calendar__tile,
+.react-calendar__decade-view__years .react-calendar__tile,
+.react-calendar__century-view__decades .react-calendar__tile {
+  min-height: 70px;
+  padding: 10px;
+  font-size: 0.9rem;
+}
+
+/* HOVER EFFECTS */
 .react-calendar__tile:hover {
-  background: #fde2e7 !important;
+  background: #fda4af !important;
+  transform: translateY(-2px);
 }
 
-/* TODAY ,  Soft glow for today */
-.react-calendar__tile--now {
-  outline: 2px solid #fb7185;
-  outline-offset: 2px;
-
-
-
-  box-shadow: 0 0 0 3px rgba(251, 113, 133, 0.25),
-              0 8px 18px rgba(251, 113, 133, 0.25);
-  animation: todayPulse 2.5s ease-in-out infinite;
-}
-
-
-/* ACTIVE */
-.react-calendar__tile--active {
-  background: #3b82f6 !important;
-  color: white;
-}
-
-/* DATE NUMBER */
-.react-calendar__tile abbr {
+/* DATE NUMBER Styling (Day View Only) */
+.react-calendar__month-view__days .react-calendar__tile abbr {
   position: absolute;
   top: 8px;
   right: 8px;
   background: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
   color: #374151;
-  font-size: 0.7rem;
-  font-weight: 600;
-  padding: 2px 7px;
-  border-radius: 999px;
-  z-index: 30;
-  pointer-events: none;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+/* TODAY */
+.react-calendar__tile--now {
+  background: #ffe4e6 !important;
+  box-shadow: 0 0 0 2px #ec4899; 
+  z-index: 10;
+}
+
+/* SELECTED DATE */
+.react-calendar__tile--active {
+  background: #ec4899 !important; 
+  color: white !important;
+  box-shadow: 0 4px 10px rgba(236, 72, 153, 0.4);
 }
 
 .react-calendar__tile--active abbr {
-  color: #1d4ed8;
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+}
+
+/* NEIGHBORING DATES */
+.react-calendar__tile--neighboringMonth {
+  opacity: 0.4;
 }
 
 /* ENTRY DOT */
 .calendar-entry-dot {
   position: absolute;
-  bottom: 14px;
+  bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
   width: 6px;
   height: 6px;
-  background: #ef4444;
+  background-color: #be185d; 
   border-radius: 50%;
 }
 
-/* OTHER MONTH */
-.react-calendar__tile--neighboringMonth {
-  opacity: 0.35;
-}
-
-/* ===== FIX NAV CENTERING ===== */
-.react-calendar__navigation {
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-/* ===== MOBILE OPTIMIZATION ===== */
-@media (max-width: 640px) {
-  .react-calendar__month-view__days {
-    gap: 0.6rem;
-  }
-
-  .react-calendar__tile {
-    min-height: 72px;
-    border-radius: 14px;
-  }
-
-  .react-calendar__navigation__label {
-    font-size: 0.95rem;
-    padding: 6px 14px;
-  }
-}
-
-/* Arrows */
-.react-calendar__navigation button:hover {
-  background-color: #ec4899 !important;
-  color: white !important;
-}
-
-/* Month title container */
-.react-calendar__navigation__label:hover {
-  background-color: #ec4899 !important;
-  color: white !important;
-}
-
-.react-calendar__navigation button,
-.react-calendar__navigation__label {
-  background-color: #f3f4f6 !important;
-  color: #374151 !important;
-}
-
-.react-calendar__tile--active {
-  background-color: #3b82f6 !important; /* blue */
-  color: white !important;
-}
-
-/* Keep date pill readable */
-.react-calendar__tile--active abbr {
-  background: white !important;
-  color: #1d4ed8 !important;
-}
-
-/* ===== MOBILE SPECIFIC FIX ===== */
-@media (max-width: 640px) {
-  .react-calendar__tile--active {
-    background-color: #3b82f6 !important;
-    color: white !important;
-  }
-}
-
-/* =====================================================
-   CALENDAR POLISH
-===================================================== */
-
-
-@keyframes todayPulse {
-  0% { box-shadow: 0 0 0 3px rgba(251, 113, 133, 0.25); }
-  50% { box-shadow: 0 0 0 6px rgba(251, 113, 133, 0.15); }
-  100% { box-shadow: 0 0 0 3px rgba(251, 113, 133, 0.25); }
-}
-
-/* Entry dot polish */
-.calendar-entry-dot {
-  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);
-}
-
-/* Hover emphasis */
-.react-calendar__tile:hover .calendar-entry-dot {
-  transform: translateX(-50%) scale(1.25);
-}
-
-/* =====================================================
-   HEADER — AESTHETIC PRODUCT POLISH
-   (Safe: does not affect calendar or pages)
-===================================================== */
-
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 14px 28px;
-
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-
-  border-bottom: 1px solid rgba(236, 72, 153, 0.12);
-}
-
-/* App title */
-.app-title {
-  font-size: 1.4rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: #111827;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* Highlighted word */
-.app-title span {
-  color: #ec4899;
-  position: relative;
-}
-
-/* subtle underline accent */
-.app-title span::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 100%;
-  height: 3px;
-  background: rgba(236, 72, 153, 0.3);
-  border-radius: 999px;
-}
-
-/* Navigation */
-.header nav {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* Nav links */
-.header nav a {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #6b7280;
-
-  padding: 6px 16px;
-  border-radius: 999px;
-
-  transition: all 0.2s ease;
-  text-decoration: none;
-}
-
-/* Hover */
-.header nav a:hover {
-  background: #fde2e7;
-  color: #ec4899;
-}
-
-/* Active tab */
-.header nav a.active {
-  background: linear-gradient(
-    135deg,
-    #ec4899,
-    #fb7185
-  );
-  color: white;
-  box-shadow: 0 6px 18px rgba(236, 72, 153, 0.25);
-}
-
-/* Remove visual pipe | without JSX change */
-.header nav span {
-  display: none;
-}
-
-/* ===============================
-   MOBILE HEADER
-================================ */
-@media (max-width: 640px) {
-  .header {
-    padding: 12px 16px;
-  }
-
-  .app-title {
-    font-size: 1.15rem;
-  }
-
-  .header nav a {
-    font-size: 0.85rem;
-    padding: 5px 14px;
-  }
-}
-
-/* =====================================================
-   MICRO INTERACTIONS (GLOBAL)
-===================================================== */
-
-/* Smooth everything */
-button,
-a,
-.shadow,
-.shadow-lg,
-.react-calendar__tile,
-.border.rounded-xl img {
-  transition: background-color 0.2s ease,
-              color 0.2s ease,
-              box-shadow 0.2s ease,
-              transform 0.15s ease;
-}
-/* Buttons */
-button:hover {
-  transform: translateY(-1px);
-}
-
-button:active {
-  transform: scale(0.97);
-}
-
-/* Cards */
-.shadow,
-.shadow-lg {
-  transition: box-shadow 0.25s ease, transform 0.2s ease;
-}
-
-.shadow:hover,
-.shadow-lg:hover {
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-  transform: translateY(-2px);
-}
-
-/* =====================================================
-   ENTRY CARD ICONS (JOURNAL)
-===================================================== */
-
-/* Entry container */
-.border.rounded-xl {
-  position: relative;
-}
-
-/* Food icon */
-.border.rounded-xl span:first-child::before {
-  content: "🍔";
-  margin-right: 6px;
-}
-
-/* Amount icon */
-.border.rounded-xl .text-pink-500::before {
-  content: "₹ ";
-  opacity: 0.6;
-}
-
-/* Image hover polish */
-.border.rounded-xl img {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.border.rounded-xl img:hover {
-  transform: scale(1.04);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-}
-
-/* Gallery polish */
-.group:hover .absolute {
-  background: rgba(0, 0, 0, 0.65);
-}
-
-.group:hover img {
-  filter: brightness(0.95);
-}
-
-/* =====================================================
-   FOOTER — CLEAN & AESTHETIC
-===================================================== */
-
+/* =========================================
+   6. FOOTER (Beautiful & Centered)
+   ========================================= */
 .footer {
-  margin-top: 60px;
-  padding: 22px 16px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background: linear-gradient(
-    to right,
-    rgba(236, 72, 153, 0.06),
-    rgba(251, 113, 133, 0.06)
-  );
-
-  border-top: 1px solid rgba(236, 72, 153, 0.15);
+  margin-top: auto; /* Pushes footer to bottom */
+  padding: 3rem 1rem;
+  text-align: center;
+  border-top: 1px solid rgba(236, 72, 153, 0.1);
+  background: white;
+  width: 100%;
 }
 
 .footer p {
-  font-size: 0.9rem;
-  color: #6b7280;
+  color: #9ca3af; /* Soft gray text */
+  font-size: 0.875rem;
   display: flex;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
+  gap: 6px;
+  letter-spacing: 0.02em;
 }
 
-/* Heart animation */
 .footer .heart {
   color: #ec4899;
-  display: inline-block;
-  animation: pulseHeart 1.6s ease-in-out infinite;
+  font-size: 1rem;
 }
 
-/* Author highlight */
 .footer .author {
   font-weight: 600;
-  color: #111827;
+  color: #4b5563; /* Slightly darker gray for emphasis */
 }
 
-/* Subtle heart pulse */
-@keyframes pulseHeart {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.25);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-/* Mobile tweak */
+/* =========================================
+   7. MOBILE OPTIMIZATION
+   ========================================= */
 @media (max-width: 640px) {
+  .react-calendar__month-view__days {
+    gap: 0.4rem !important;
+  }
+  
+  .react-calendar__year-view__months, 
+  .react-calendar__decade-view__years {
+    gap: 0.5rem !important;
+  }
+
+  .react-calendar__tile {
+    border-radius: 12px;
+  }
+  
+  .react-calendar__month-view__days .react-calendar__tile {
+     min-height: 70px;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+  
   .footer {
-    margin-top: 40px;
-    padding: 18px 12px;
+    padding: 2rem 1rem;
   }
-
-  .footer p {
-    font-size: 0.85rem;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-.animate-slideUp {
-  animation: slideUp 0.3s ease-out;
 }

@@ -84,9 +84,14 @@ function AddEntryModal({ isOpen, onClose, selectedDate, editingEntry }) {
               alt="Preview"
               style={{
                 width: "100%",
+                // ✅ FIX: Limit height so buttons stay visible on mobile
+                maxHeight: "250px", 
+                // ✅ FIX: Ensure whole image is visible inside the box
+                objectFit: "contain", 
                 borderRadius: "12px",
                 marginTop: "12px",
-                objectFit: "cover",
+                backgroundColor: "#f9fafb", // Light gray background for transparency
+                border: "1px solid #e5e7eb"
               }}
             />
           )}
