@@ -72,7 +72,7 @@ LocalStorage (no backend)
 
 👉 Live App on Vercel
 
-(Link will be updated after deployment)
+https://junk-journal.vercel.app/
 
 📸 Screenshots
 
